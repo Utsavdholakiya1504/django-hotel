@@ -11,48 +11,55 @@ from django.contrib import messages
 # def index(request):
 #     return render(request,"index.html")
 
-def index(request):
+def page(request,template,a1=None):
     if not request.session.get('username'):
         return redirect('/login/')
-    return render(request,"index.html")
+    return render(request,template,a1)
+
+
+
+def index(request):
+    # if not request.session.get('username'):
+    #     return redirect('/login/')
+    return page(request,"index.html")
 
 def about(request):
-    if not request.session.get('username'):
-        return redirect('/login/')
-    return render(request,"about.html")
+    # if not request.session.get('username'):
+    #     return redirect('/login/')
+    return page(request,"about.html")
 
 def booking(request):
-    if not request.session.get('username'):
-        return redirect('/login/')
-    return render(request,"booking.html")
+    # if not request.session.get('username'):
+    #     return redirect('/login/')
+    return page(request,"booking.html")
 
 def contact(request):
-    if not request.session.get('username'):
-        return redirect('/login/')
-    return render(request,"contact.html")
+    # if not request.session.get('username'):
+    #     return redirect('/login/')
+    return page(request,"contact.html")
 
 def room(request):
-    if not request.session.get('username'):
-        return redirect('/login/')
-    return render(request,"room.html")
+    # if not request.session.get('username'):
+    #     return redirect('/login/')
+    return page(request,"room.html")
 
 def service(request):
-    if not request.session.get('username'):
-        return redirect('/login/')
-    return render(request,"service.html")
+    # if not request.session.get('username'):
+    #     return redirect('/login/')
+    return page(request,"service.html")
 
 def team(request):
-    if not request.session.get('username'):
-        return redirect('/login/')
-    return render(request,"team.html")
+    # if not request.session.get('username'):
+    #     return redirect('/login/')
+    return page(request,"team.html")
 
 def testimonial(request):
-    if not request.session.get('username'):
-        return redirect('/login/')
-    return render(request,"testimonial.html")
+    # if not request.session.get('username'):
+    #     return redirect('/login/')
+    return page(request,"testimonial.html")
 
 def header(request):
-    return render(request,"header.html")
+    return page(request,"header.html")
 
 # def login(request):
 #     return render(request,"login.html")
@@ -109,7 +116,7 @@ def register(request):
 def user(request):
     data = Register.objects.all()
     a1={"data":data}
-    return render(request,"user.html",a1)
+    return page(request,"user.html",a1)
 
 
 
@@ -133,22 +140,12 @@ def update(request,id):
     return render(request,"update.html",{"data":data})
 
 
-# def login(request):
-#     if request.method == 'POST':
-#         username = request.POST.get('username')
-#         password = request.POST.get('password')
-        
-
-#         try:
-#             user = Register.objects.get(username=username, password=password)
-#             return redirect('/')  # Replace 'home' with your homepage URL name
-#         except Register.DoesNotExist:
-#             return redirect('/login/')
-
-
-#     return render(request, 'login.html')
 
 def login(request):
+
+    if request.session.get('username'):
+        return redirect('/')
+    
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -157,7 +154,7 @@ def login(request):
         try:
             user = Register.objects.get(username=username, password=password)
             request.session['username'] = user.username
-            return redirect('/')  # Replace 'home' with your homepage URL name
+            return redirect('/')   
         except Register.DoesNotExist:
             return redirect('/login/')
             # return render(request, 'login.html', {'Fail': True})
