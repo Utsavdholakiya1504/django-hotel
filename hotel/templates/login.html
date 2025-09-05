@@ -40,14 +40,7 @@
     <div class="auth-container" align="center">
         <form class="auth-form" action="/login/" method="POST">
             <h2>Login</h2>
-            <!-- Show error/success messages -->
-            <!-- {% if messages %}
-            {% for message in messages %}
-            <div style="color: red; margin-bottom: 10px;">
-                {{ message }}
-            </div>
-            {% endfor %}
-            {% endif %} -->
+            
 
             {% csrf_token %}
 
@@ -58,13 +51,16 @@
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required>
             </div>
+            {% if Fail %}
+            <p style="color:red;">Username or Password is incorrect!!!</p>
+            {% endif %}
             <button type="submit">Login</button>
             <p class="form-link">
                 <a href="/register/">Don't have an account? Register</a>
             </p>
         </form>
 
-         
+
     </div>
 
     <!-- body end  -->

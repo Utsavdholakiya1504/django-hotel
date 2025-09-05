@@ -3,33 +3,52 @@ from django.shortcuts import redirect
 from django.http import HttpResponse
 from service.models import Register
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
- 
+# from django.contrib.auth import authenticate, login as auth_login 
+
 # def index(request):
 #     return HttpResponse("project run sucessfully...")
 
+# def index(request):
+#     return render(request,"index.html")
+
 def index(request):
+    if not request.session.get('username'):
+        return redirect('/login/')
     return render(request,"index.html")
 
 def about(request):
+    if not request.session.get('username'):
+        return redirect('/login/')
     return render(request,"about.html")
 
 def booking(request):
+    if not request.session.get('username'):
+        return redirect('/login/')
     return render(request,"booking.html")
 
 def contact(request):
+    if not request.session.get('username'):
+        return redirect('/login/')
     return render(request,"contact.html")
 
 def room(request):
+    if not request.session.get('username'):
+        return redirect('/login/')
     return render(request,"room.html")
 
 def service(request):
+    if not request.session.get('username'):
+        return redirect('/login/')
     return render(request,"service.html")
 
 def team(request):
+    if not request.session.get('username'):
+        return redirect('/login/')
     return render(request,"team.html")
 
 def testimonial(request):
+    if not request.session.get('username'):
+        return redirect('/login/')
     return render(request,"testimonial.html")
 
 def header(request):
@@ -116,35 +135,37 @@ def update(request,id):
 
 # def login(request):
 #     if request.method == 'POST':
-#         form = LoginForm(request.POST)
-#         if form.is_valid():
-#             username = form.cleaned_data['username']
-#             password = form.cleaned_data['password']
+#         username = request.POST.get('username')
+#         password = request.POST.get('password')
+        
 
-#             user = authenticate(request, username=username, password=password)
+#         try:
+#             user = Register.objects.get(username=username, password=password)
+#             return redirect('/')  # Replace 'home' with your homepage URL name
+#         except Register.DoesNotExist:
+#             return redirect('/login/')
 
-#             if user is not None:
-#                 login(request, user)
-#                 messages.success(request, f'Welcome, {username}!')
-#                 return redirect('home') # Redirect to a success page like 'home'
-#             else:
-#                 messages.error(request, 'Invalid username or password.')
-#         else:
-#             form = LoginForm()
-#     return render(request, 'registration/login.html', {'form': form})
+
+#     return render(request, 'login.html')
 
 def login(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        
 
-        user = authenticate(request, username=username, password=password)
+        try:
+            user = Register.objects.get(username=username, password=password)
+            request.session['username'] = user.username
+            return redirect('/')  # Replace 'home' with your homepage URL name
+        except Register.DoesNotExist:
+            return redirect('/login/')
+            # return render(request, 'login.html', {'Fail': True})
 
-        if user is not None:
-            login(request, user)
-            messages.success(request, f'Welcome, {username}!')
-            return redirect('home')  # Replace 'home' with your homepage URL name
-        else:
-            messages.error(request, 'Invalid username or password.')
 
     return render(request, 'login.html')
+
+
+def logout(request):
+    request.session.flush()  # Clear all session data
+    return redirect('/login/')

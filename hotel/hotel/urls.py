@@ -34,5 +34,6 @@ urlpatterns = [
     path('user/', views.user),
     path('delete/<int:id>', views.delete),
     path('update/<int:id>/', views.update),
+     path('logout/', views.logout),
 
 ]
