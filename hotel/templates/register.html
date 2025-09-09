@@ -100,10 +100,10 @@
 
     <!-- body start -->
     <div class="auth-container">
-        {% if success %}
+        <!-- {% if success %}
         <p style="color:green;">Form submitted successfully!</p>
-         {% endif %}
-        <form class="auth-form" action="" method="POST" id="register-form">
+         {% endif %} -->
+        <form class="auth-form" action="" method="POST" id="register-form" enctype="multipart/form-data">
             {% csrf_token %}
             <h2>Register</h2>
             <div class="input-group">
@@ -122,6 +122,10 @@
                 <label for="confirm-password">Confirm Password</label>
                 <input type="password" id="confirm-password" name="confirm_password" required>
             </div>
+             <div class="input-group">
+                <label for="image">Image</label>    
+                <input type="file" id="image" name="image" required>
+             </div>
             {% if password %}
              <p style="color:red;">password and confirm-password does not match</p>
             {% endif %}

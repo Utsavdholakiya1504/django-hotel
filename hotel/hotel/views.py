@@ -23,6 +23,7 @@ def index(request):
     #     return redirect('/login/')
     return page(request,"index.html")
 
+
 def about(request):
     # if not request.session.get('username'):
     #     return redirect('/login/')
@@ -76,7 +77,8 @@ def register(request):
         email = request.POST["email"]
         password = request.POST["password"]
         confirm_password = request.POST["confirm_password"]
-        a1 = Register(username=username,email=email,password=password)
+        image = request.FILES.get("image")
+        a1 = Register(username=username,email=email,password=password,image=image)
         a1.save()
 
        
@@ -166,3 +168,6 @@ def login(request):
 def logout(request):
     request.session.flush()  # Clear all session data
     return redirect('/login/')
+
+def fileupload(request):
+     return redirect('/login/')
