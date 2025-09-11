@@ -1,39 +1,85 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Show data</title>
+    <title>Show Data</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            text-align: left;
+            padding: 10px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        img {
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 5px 10px;
+            margin: 5px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 3px;
+        }
+        .btn.delete {
+            background-color: #dc3545;
+        }
+        .btn.update {
+            background-color: #28a745;
+        }
+    </style>
 </head>
-
 <body>
-     
+
+    <h2>User Records</h2>
 
     <table border="1" cellspacing="0" cellpadding="10">
         <tr>
-            <th>id</th>
+            <th>ID</th>
             <th>Name</th>
             <th>Email</th>
-            <th>Password</th>
-            <th>Action</th>
-            <th>Action</th>
+            <!-- <th>Password</th> -->
+            <th>Uploaded File</th>
+            <th>Actions</th>
         </tr>
 
-        <!-- jinja pattern for loop -->
         {% for i in data %}
         <tr>
-            <td>{{i.id}}</td>
-            <td>{{i.username}}</td>
-            <td>{{i.email}}</td>
-            <td>{{i.password}}</td>
-            <td><button><a href="/delete/{{i.id}}">Delete</a></button></td>
-            <td><button><a href="/update/{{i.id}}">Update</a></button></td>
+            <td>{{ i.id }}</td>
+            <td>{{ i.username }}</td>
+            <td>{{ i.email }}</td>
+            <td>{{ i.password }}</td>
+
+            <td>
+                {% if i.file %}
+                    <img src="{{ i.file.url }}" alt="User File" width="130" height="80">
+                {% else %}
+                    <p>No Image</p>
+                {% endif %}
+            </td>
+
+            <td>
+                <a href="/update/{{ i.id }}" class="btn update">Update</a>
+                <a href="/delete/{{ i.id }}" class="btn delete">Delete</a>
+            </td>
         </tr>
         {% endfor %}
     </table>
-    <button><a href="/logout/">Logout</a></button>
-    <a href="/register/">For Register</a>
-</body>
 
+    <br>
+    <a href="/logout/" class="btn">Logout</a>
+    <a href="/register/" class="btn">Register</a>
+    <a href="/" class="btn">Home</a>
+
+</body>
 </html>

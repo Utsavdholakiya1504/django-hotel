@@ -1,9 +1,7 @@
-from django.shortcuts import render
-from django.shortcuts import redirect
-from django.http import HttpResponse
+import os  
+from django.conf import settings
 from service.models import Register
-from django.contrib import messages
-# from django.contrib.auth import authenticate, login as auth_login 
+from django.shortcuts import render ,redirect
 
 # def index(request):
 #     return HttpResponse("project run sucessfully...")
@@ -77,8 +75,8 @@ def register(request):
         email = request.POST["email"]
         password = request.POST["password"]
         confirm_password = request.POST["confirm_password"]
-        image = request.FILES.get("image")
-        a1 = Register(username=username,email=email,password=password,image=image)
+        file = request.FILES.get("file")
+        a1 = Register(username=username,email=email,password=password,file=file)
         a1.save()
 
        
@@ -124,8 +122,13 @@ def user(request):
 
 def delete(request,id):
     data=Register.objects.get(id=id)
-    # print(data)
     data.delete()
+    # print(data)
+    if data.file:
+        file_path = os.path.join(settings.MEDIA_ROOT, str(data.file))
+        if os.path.isfile(file_path):
+            os.remove(file_path)
+     
     return redirect("/user/")
 
 
@@ -136,6 +139,19 @@ def update(request,id):
         data.username=request.POST.get("username")
         data.email=request.POST.get("email")
         data.password=request.POST.get("password")
+        # data.file=request.FILES.get("file")
+
+        new_file = request.FILES.get("file")
+        
+        if new_file:
+            # Delete old file if it exists
+            if data.file:
+                old_file_path = os.path.join(settings.MEDIA_ROOT, str(data.file))
+                if os.path.isfile(old_file_path):
+                    os.remove(old_file_path)
+            # Set new file
+            data.file = new_file
+            
         data.save()
         return redirect("/user/")
 

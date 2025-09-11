@@ -34,14 +34,14 @@
 </head>
 
 <body>
-  
+
 
     <!-- body start -->
     <div class="auth-container">
         {% if success %}
         <p style="color:green;">Form submitted successfully!</p>
         {% endif %}
-        <form class="auth-form" action="" method="POST" id="register-form">
+        <form class="auth-form" action="" method="POST" id="register-form" >
             {% csrf_token %}
             <h2>Update</h2>
             <div class="input-group">
@@ -54,13 +54,19 @@
             </div>
             <div class="input-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" required autocomplete="new-password" value="{{data.password}}">
+                <input type="password" id="password" name="password" required autocomplete="new-password"
+                    value="{{data.password}}">
             </div>
             <div class="input-group">
                 <label for="confirm-password">Confirm Password</label>
                 <input type="password" id="confirm-password" name="confirm_password" required>
             </div>
-            <button type="submit" >Register</button>
+            <div class="input-group">
+                <label for="file">File</label>
+                <input type="file" id="file" name="file" value="{{data.file}}">
+            </div>
+
+            <button type="submit">Register</button>
             <p class="form-link">
                 <a href="/login/">Already have an account? Login</a>
             </p>
