@@ -1,7 +1,7 @@
 import os  
 from django.conf import settings
 from service.models import Register
-from django.shortcuts import render ,redirect
+from django.shortcuts import render ,redirect ,get_object_or_404
 
 # def index(request):
 #     return HttpResponse("project run sucessfully...")
@@ -23,47 +23,30 @@ def index(request):
 
 
 def about(request):
-    # if not request.session.get('username'):
-    #     return redirect('/login/')
-    return page(request,"about.html")
+     return page(request,"about.html")
 
 def booking(request):
-    # if not request.session.get('username'):
-    #     return redirect('/login/')
-    return page(request,"booking.html")
+     return page(request,"booking.html")
 
 def contact(request):
-    # if not request.session.get('username'):
-    #     return redirect('/login/')
-    return page(request,"contact.html")
+     return page(request,"contact.html")
 
 def room(request):
-    # if not request.session.get('username'):
-    #     return redirect('/login/')
-    return page(request,"room.html")
+     return page(request,"room.html")
 
 def service(request):
-    # if not request.session.get('username'):
-    #     return redirect('/login/')
-    return page(request,"service.html")
+     return page(request,"service.html")
 
 def team(request):
-    # if not request.session.get('username'):
-    #     return redirect('/login/')
-    return page(request,"team.html")
+     return page(request,"team.html")
 
 def testimonial(request):
-    # if not request.session.get('username'):
-    #     return redirect('/login/')
-    return page(request,"testimonial.html")
+     return page(request,"testimonial.html")
 
 def header(request):
     return page(request,"header.html")
 
-# def login(request):
-#     return render(request,"login.html")
-
-
+ 
 
 
   
@@ -139,7 +122,15 @@ def update(request,id):
         data.username=request.POST.get("username")
         data.email=request.POST.get("email")
         data.password=request.POST.get("password")
-        # data.file=request.FILES.get("file")
+ 
+        obj = get_object_or_404(Register, pk=id)
+        if request.POST.get("remove_image") == "1":
+            if obj.file:
+                # delete file from storage AND clear DB field
+                obj.file.delete(save=False)
+                obj.file = None 
+
+
 
         new_file = request.FILES.get("file")
         

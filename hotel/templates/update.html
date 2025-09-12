@@ -41,7 +41,7 @@
         {% if success %}
         <p style="color:green;">Form submitted successfully!</p>
         {% endif %}
-        <form class="auth-form" action="" method="POST" id="register-form" >
+        <form class="auth-form" action="" method="POST" id="register-form" enctype="multipart/form-data">
             {% csrf_token %}
             <h2>Update</h2>
             <div class="input-group">
@@ -61,8 +61,25 @@
                 <label for="confirm-password">Confirm Password</label>
                 <input type="password" id="confirm-password" name="confirm_password" required>
             </div>
+            <div>
+                <label>Current Image</label><br>
+                {% if data.file %}
+                <a href="{{ data.file.url }}" target="_blank">
+                    <img src="{{ data.file.url }}" alt="Current Image Not Found"
+                        style="width:150px;height:90px;object-fit:cover;border:1px solid #ddd;">
+                </a>
+                <div>
+                    <label>
+                        <input type="checkbox" name="remove_image" value="1">
+                        Remove current image
+                    </label>
+                </div>
+                {% else %}
+                <p>No image uploaded.</p>
+                {% endif %}
+            </div>
             <div class="input-group">
-                <label for="file">File</label>
+                <label for="file">New File</label>
                 <input type="file" id="file" name="file" value="{{data.file}}">
             </div>
 
