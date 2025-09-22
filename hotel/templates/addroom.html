@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotelier - Hotel add Room</title>
+
+    <!-- Template Stylesheet -->
+    <link rel="stylesheet" href="/static/css/form.css">
+
+</head>
+
+<body>
+
+
+    <!-- body start -->
+    <div class="auth-container">
+        <!-- {% if success %}
+        <p style="color:green;">Form submitted successfully!</p>
+         {% endif %} -->
+        <form class="auth-form" method="POST" id="register-form" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h2>Add Room </h2>
+            <div class="input-group">
+                <label for="file">Room image</label>
+                <input type="file" id="file" name="file" required>
+            </div>
+            <div class="input-group">
+                <label for="rent">Night Rent</label>
+                <input type="number" id="rent" name="rent" min="0" required>
+            </div>
+            <div class="input-group">
+                <label for="roomname">Roomname</label>
+                <input type="text" id="roomname" name="roomname" required>
+            </div>
+            <div class="input-group">
+                <label for="roomratting">Room Ratting</label>
+                <input type="number" id="roomratting" name="roomratting" min="0" max="5"  required>
+            </div>
+            <div class="input-group">
+                <label for="bed">Bed</label>
+                <input type="number" id="bed" name="bed" min="0" min="0" required>
+            </div>
+            <div class="input-group">
+                <label for="bath">Bath</label>
+                <input type="number" id="bath" name="bath" min="0" required>
+            </div>
+            <div class="input-group">
+                <label>
+                    Wifi Available<input type="checkbox" name="wifi">
+                    
+                </label>
+            </div>
+            <div class="input-group">
+                <label for="desc">Description</label>
+                <textarea name="desc" id="desc" cols="55" rows="5" placeholder="Enter your Room Description" required></textarea>
+            </div>
+
+            <button type="submit">Register</button>
+
+        </form>
+    </div>
+    <!-- body end  -->
+
+
+
+</body>
+
+</html>

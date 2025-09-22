@@ -37,6 +37,7 @@ urlpatterns = [
     path('delete/<int:id>', views.delete),
     path('update/<int:id>/', views.update),
     path('logout/', views.logout),
+    path('addroom/', views.addroom),
 
 ]  
 if settings.DEBUG:

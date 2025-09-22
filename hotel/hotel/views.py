@@ -1,6 +1,6 @@
 import os  
 from django.conf import settings
-from service.models import Register
+from service.models import Register, Addroom
 from django.shortcuts import render ,redirect ,get_object_or_404
 
 # def index(request):
@@ -31,8 +31,13 @@ def booking(request):
 def contact(request):
      return page(request,"contact.html")
 
+# def room(request):
+#      return page(request,"room.html")
+
 def room(request):
-     return page(request,"room.html")
+    data = Addroom.objects.all()
+    a1={"data":data}
+    return page(request,"room.html",a1)
 
 def service(request):
      return page(request,"service.html")
@@ -176,5 +181,47 @@ def logout(request):
     request.session.flush()  # Clear all session data
     return redirect('/login/')
 
-def fileupload(request):
-     return redirect('/login/')
+# def fileupload(request):
+#      return redirect('/login/')
+
+ 
+
+  
+def addroom(request):
+    
+    try: 
+        # Get form data
+        file = request.FILES.get("file")
+        rent = request.POST["rent"]
+        roomname = request.POST["roomname"]
+        roomratting = request.POST["roomratting"]
+        bed = request.POST["bed"]
+        bath = request.POST["bath"]
+        wifi = bool(request.POST.get("wifi"))
+        desc = request.POST["desc"]
+
+        a1 = Addroom(file=file,rent=rent,roomname=roomname,roomratting=roomratting,bed=bed,bath=bath,wifi=wifi,desc=desc)
+        a1.save()       
+
+        # Print form data to terminal
+        # print("Form submitted:")
+        # print("file: ",file)
+        # print("rent: ",rent)
+        # print("roomname: ",roomname)
+        # print("roomratting: ",roomratting)
+        # print("bed: ",bed)
+        # print("bath: ",bath)
+        # print("wifi: ",wifi)
+        # print("desc: ",desc)
+
+        # Redirect to success page
+        # return redirect('/user/')
+    
+        # Render success page
+        # return render(request, 'addroom.html', {'success': True})
+
+        
+    except:pass
+    
+    return render(request, 'addroom.html')
+ 

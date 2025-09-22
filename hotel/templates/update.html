@@ -61,7 +61,7 @@
                 <label for="confirm-password">Confirm Password</label>
                 <input type="password" id="confirm-password" name="confirm_password" required>
             </div>
-            <!-- <div>
+            <div>
                 <label>Current Image</label><br>
                 {% if data.file %}
                 <a href="{{ data.file.url }}" target="_blank">
@@ -77,30 +77,28 @@
                 {% else %}
                 <p>No image uploaded.</p>
                 {% endif %}
-            </div> -->
+            </div>
 
-            <div>
+            <!-- <div>
                 <label>Current Image</label><br>
 
                 {% if data.file %}
-                <!-- Show preview of existing image -->
-                <a href="{{ data.file.url }}" target="_blank">
+                 <a href="{{ data.file.url }}" target="_blank">
                     <img src="{{ data.file.url }}" alt="Current Image"
                         style="width:150px;height:90px;object-fit:cover;border:1px solid #ddd;">
                 </a>
 
-                <!-- ✅ Only show the remove checkbox when an image exists -->
-                <div >
+                 <div >
                     <label>
                         <input type="checkbox" name="remove_image" value="1">
                         Remove current image
                     </label>
                 </div>
                 {% else %}
-                <!-- No image at all: show a message (no checkbox) -->
-                <p>No image uploaded.</p>
+                 <p>No image uploaded.</p>
                 {% endif %}
-            </div>
+            </div> -->
+            
 
             <div class="input-group">
                 <label for="file">New File</label>
