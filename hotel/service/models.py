@@ -20,3 +20,6 @@ class Addroom(models.Model):
     desc = models.TextField(max_length=300)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)    
+
+    def star_range(self):
+        return range(int(self.roomratting))
